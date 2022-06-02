@@ -84,6 +84,7 @@ class MusicActivity : AppCompatActivity(), View.OnClickListener, SeekBar.OnSeekB
                 if (musicState) {
                     withContext(Dispatchers.Main) {
                         binding.seekMusic.progress = mediaPlayer.currentPosition
+                        viewModel?.musicPosition?.value = mediaPlayer.currentPosition
                     }
                 }
                 Thread.sleep(500)

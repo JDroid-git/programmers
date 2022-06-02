@@ -18,12 +18,18 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.net.URL
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class PlayingFragment : Fragment() {
 
     private lateinit var binding: FragmentPlayingBinding
 
     private var musicViewModel: MusicViewModel? = null
+    private var position = 0
+    private val arrayLyricsTime = ArrayList<Date>()
+    private val arrayLyrics = ArrayList<String>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentPlayingBinding.inflate(inflater, container, false)
@@ -45,19 +51,28 @@ class PlayingFragment : Fragment() {
                 val bitmap = getImage(it.image)
                 withContext(Dispatchers.Main) {
                     binding.imgMusic.setImageBitmap(bitmap)
+                    binding.txtMusicTitle.text = it.title
+                    binding.txtAlbum.text = it.album
+                    binding.txtSinger.text = it.singer
+                }
+                val simpleDateFormat = SimpleDateFormat("mm:ss:SSS", Locale.getDefault())
+                it.lyrics.split("\n").forEach {
+                    simpleDateFormat.parse(it.substring(1, 9))?.let { it1 -> arrayLyricsTime.add(it1) }
+                    arrayLyrics.add(it.substring(11))
                 }
             }
-//            binding.imgMusic.setImageURI(Uri.parse(it.image))
+        })
+
+        musicViewModel?.musicPosition?.observe(requireActivity(), Observer {
+            CoroutineScope(Dispatchers.IO).launch {
+                position = it
+            }
         })
     }
 
-    private suspend fun getImage(url: String): Bitmap? {
+    private fun getImage(url: String): Bitmap? {
         var bitmap: Bitmap? = null
         try {
-//            val bis = BufferedInputStream(URL(url).openStream(), 1024)
-//            val baos = ByteArrayOutputStream()
-//            val bos = BufferedOutputStream(baos, 1024)
-//            copy()
             val inputStream = URL(url).openStream()
             bitmap = BitmapFactory.decodeStream(inputStream)
 

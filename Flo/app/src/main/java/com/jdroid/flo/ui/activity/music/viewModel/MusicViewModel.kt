@@ -13,6 +13,7 @@ class MusicViewModel : ViewModel() {
 
     val musicData = MutableLiveData<MusicInfo>()
     val musicLoading = MutableLiveData<Boolean>()
+    val musicPosition = MutableLiveData<Int>()
 
     val musicException = MutableLiveData<String?>()
     val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->

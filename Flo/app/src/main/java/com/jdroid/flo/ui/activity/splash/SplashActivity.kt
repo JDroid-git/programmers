@@ -23,6 +23,6 @@ class SplashActivity : AppCompatActivity() {
                 finish()
             }
         }
-        Timer().schedule(timerTask, 3000)
+        Timer().schedule(timerTask, 2000)
     }
 }
