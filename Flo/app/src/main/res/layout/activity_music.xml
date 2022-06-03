@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -11,7 +12,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:indeterminateTint="@color/purple_500"
+        android:indeterminateTint="@color/color_3e3aff"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
@@ -27,27 +28,62 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:paddingHorizontal="10dp">
+        tools:layout_editor_absoluteX="0dp"
+        android:clipChildren="false">
+
+        <TextView
+            android:id="@+id/txtSeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textSize="16dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <SeekBar
             android:id="@+id/seekMusic"
+            style="@style/CustomProgress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            android:progressTint="@color/purple_500"
             android:background="@null"
+            android:layout_marginTop="12dp"
+            android:max="0"
+            app:layout_constraintTop_toBottomOf="@id/txtSeek"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:thumbOffset="0dp"
             android:thumb="@null"/>
+
+        <TextView
+            android:id="@+id/txtPositionTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/seekMusic"
+            app:layout_constraintTop_toBottomOf="@id/seekMusic"
+            android:textColor="@color/color_3e3aff"
+            android:text="00:00"/>
+
+        <TextView
+            android:id="@+id/txtDurationTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/seekMusic"
+            app:layout_constraintTop_toBottomOf="@id/seekMusic"
+            android:text="00:00"/>
 
         <ToggleButton
             android:id="@+id/btnPlay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/seekMusic"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textOff="재생"
             android:textOn="일시정지"
-            android:textOff="재생"/>
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/seekMusic" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

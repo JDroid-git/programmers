@@ -1,5 +1,6 @@
 package com.jdroid.flo.ui.activity.music.viewModel
 
+import android.media.MediaPlayer
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,7 +14,9 @@ class MusicViewModel : ViewModel() {
 
     val musicData = MutableLiveData<MusicInfo>()
     val musicLoading = MutableLiveData<Boolean>()
+
     val musicPosition = MutableLiveData<Int>()
+    val musicPlayer = MutableLiveData<MediaPlayer>().apply { value = MediaPlayer() }
 
     val musicException = MutableLiveData<String?>()
     val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
